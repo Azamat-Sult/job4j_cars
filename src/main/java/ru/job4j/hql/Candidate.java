@@ -13,6 +13,12 @@ public class Candidate {
     private String name;
     private String experience;
     private int salary;
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn (name = "postDB_id")
+    private PostDB postDB;
 
     public static Candidate of(String name, String experience, int salary) {
         Candidate candidate = new Candidate();
@@ -54,6 +60,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public PostDB getPostDB() {
+        return postDB;
+    }
+
+    public void setPostDB(PostDB postDB) {
+        this.postDB = postDB;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -74,6 +88,6 @@ public class Candidate {
     @Override
     public String toString() {
         return "Candidate { " + "id=" + id + ", name='" + name + "', experience='" + experience
-                + "', salary=" + salary + " }";
+                + "', salary=" + salary + ", postDB name='" + getPostDB().getName() + "' }";
     }
 }

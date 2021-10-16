@@ -6,8 +6,9 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class Init {
+public class FetchUsage {
     public static void main(String[] args) {
+        Candidate rsl = null;
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try {
@@ -15,27 +16,12 @@ public class Init {
             Session session = sf.openSession();
             session.beginTransaction();
 
-            JobPost post1 = JobPost.of("Post 1", "Post 1");
-            JobPost post2 = JobPost.of("Post 2", "Post 2");
-            JobPost post3 = JobPost.of("Post 3", "Post 3");
-            JobPost post4 = JobPost.of("Post 4", "Post 4");
-
-            PostDB postDB = PostDB.of("PostDB 1");
-
-            Candidate junior = Candidate.of("Junior", "No exp", 80000);
-            /*Candidate middle = Candidate.of("Middle", "2 year exp", 150000);
-            Candidate senior = Candidate.of("Senior", "5 year exp", 250000);*/
-
-            postDB.addJobPost(post1);
-            postDB.addJobPost(post2);
-            postDB.addJobPost(post3);
-            postDB.addJobPost(post4);
-
-            junior.setPostDB(postDB);
-
-            session.save(junior);
-            /*session.save(middle);
-            session.save(senior);*/
+            rsl = session.createQuery(
+                    "select distinct c from Candidate c "
+                            + "join fetch c.postDB db "
+                            + "join fetch db.jobPosts p "
+                            + "where c.id = :id", Candidate.class
+            ).setParameter("id", 1).uniqueResult();
 
             session.getTransaction().commit();
             session.close();
@@ -45,5 +31,9 @@ public class Init {
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
         }
+
+        System.out.println(rsl);
+        System.out.println(rsl.getPostDB());
+        System.out.println(rsl.getPostDB().getJobPosts().get(0));
     }
 }
