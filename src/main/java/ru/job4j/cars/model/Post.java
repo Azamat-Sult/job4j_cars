@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,8 @@ public class Post {
     private String photo;
     private String description;
     private boolean sold;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
@@ -25,6 +28,7 @@ public class Post {
         post.photo = "noPhoto.jpg";
         post.description = description;
         post.sold = false;
+        post.created = new Date(System.currentTimeMillis());
         post.author = author;
         return post;
     }
@@ -85,6 +89,14 @@ public class Post {
         this.author = author;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -106,6 +118,6 @@ public class Post {
     public String toString() {
         return "Post { " + "id=" + id + ", carBrand='" + carBrand + "', bodyType='" + bodyType
                 + "', photo='" + photo + "', description='" + description + "', sold=" + sold
-                + ", author=" + author + " }";
+                + ", created='" + created + "', author=" + author + " }";
     }
 }
