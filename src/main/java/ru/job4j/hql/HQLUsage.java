@@ -25,7 +25,9 @@ public class HQLUsage {
             System.out.println(query.uniqueResult());
 
             query = session.createQuery("from Candidate c where c.name = 'Senior'");
-            System.out.println(query.uniqueResult());
+            for (Object senior : query.list()) {
+                System.out.println(senior);
+            }
 
             query = session.createQuery(
                     "update Candidate c set c.name = :newName, c.salary = :newSalary where c.id = :id"

@@ -88,6 +88,6 @@ public class Candidate {
     @Override
     public String toString() {
         return "Candidate { " + "id=" + id + ", name='" + name + "', experience='" + experience
-                + "', salary=" + salary + ", postDB name='" + getPostDB().getName() + "' }";
+                + "', salary=" + salary + "' }";
     }
 }

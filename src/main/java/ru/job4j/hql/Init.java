@@ -23,8 +23,9 @@ public class Init {
             PostDB postDB = PostDB.of("PostDB 1");
 
             Candidate junior = Candidate.of("Junior", "No exp", 80000);
-            /*Candidate middle = Candidate.of("Middle", "2 year exp", 150000);
-            Candidate senior = Candidate.of("Senior", "5 year exp", 250000);*/
+            Candidate middle = Candidate.of("Middle", "2 year exp", 150000);
+            Candidate senior1 = Candidate.of("Senior", "5 year exp", 250000);
+            Candidate senior2 = Candidate.of("Senior", "6 year exp", 260000);
 
             postDB.addJobPost(post1);
             postDB.addJobPost(post2);
@@ -34,8 +35,9 @@ public class Init {
             junior.setPostDB(postDB);
 
             session.save(junior);
-            /*session.save(middle);
-            session.save(senior);*/
+            session.save(middle);
+            session.save(senior1);
+            session.save(senior2);
 
             session.getTransaction().commit();
             session.close();
