@@ -10,8 +10,18 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String carBrand;
-    private String bodyType;
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "carbrand_id")
+    private CarBrand carBrand;
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "bodytype_id")
+    private BodyType bodyType;
     private String photo;
     private String description;
     private boolean sold;
@@ -21,7 +31,7 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
-    public static Post of(String carBrand, String bodyType, String description, User author) {
+    public static Post of(CarBrand carBrand, BodyType bodyType, String description, User author) {
         Post post = new Post();
         post.carBrand = carBrand;
         post.bodyType = bodyType;
@@ -41,19 +51,19 @@ public class Post {
         this.id = id;
     }
 
-    public String getCarBrand() {
+    public CarBrand getCarBrand() {
         return carBrand;
     }
 
-    public void setCarBrand(String carBrand) {
+    public void setCarBrand(CarBrand carBrand) {
         this.carBrand = carBrand;
     }
 
-    public String getBodyType() {
+    public BodyType getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(String bodyType) {
+    public void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
     }
 

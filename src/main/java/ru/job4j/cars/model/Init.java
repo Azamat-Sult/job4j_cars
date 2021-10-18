@@ -21,12 +21,34 @@ public class Init {
             session.save(user1);
             session.save(user2);
 
-            Post post1 = Post.of("carBrand 1", "bodyType 1", "desc 1", user1);
-            Post post2 = Post.of("carBrand 2", "bodyType 2", "desc 2", user1);
+            CarBrand carBrand1 = CarBrand.of("carBrand 1");
+            BodyType bodyType1 = BodyType.of("bodyType 1");
+            Post post1 = Post.of(carBrand1, bodyType1, "desc 1", user1);
+            CarBrand carBrand2 = CarBrand.of("carBrand 2");
+            BodyType bodyType2 = BodyType.of("bodyType 2");
+            Post post2 = Post.of(carBrand2, bodyType2, "desc 2", user1);
 
-            Post post3 = Post.of("carBrand 3", "bodyType 3", "desc 3", user2);
-            Post post4 = Post.of("carBrand 4", "bodyType 4", "desc 4", user2);
-            Post post5 = Post.of("carBrand 5", "bodyType 5", "desc 5", user2);
+            CarBrand carBrand3 = CarBrand.of("carBrand 3");
+            BodyType bodyType3 = BodyType.of("bodyType 3");
+            Post post3 = Post.of(carBrand3, bodyType3, "desc 3", user2);
+            CarBrand carBrand4 = CarBrand.of("carBrand 4");
+            BodyType bodyType4 = BodyType.of("bodyType 4");
+            Post post4 = Post.of(carBrand4, bodyType4, "desc 4", user2);
+            CarBrand carBrand5 = CarBrand.of("carBrand 5");
+            BodyType bodyType5 = BodyType.of("bodyType 5");
+            Post post5 = Post.of(carBrand5, bodyType5, "desc 5", user2);
+
+            session.save(carBrand1);
+            session.save(carBrand2);
+            session.save(carBrand3);
+            session.save(carBrand4);
+            session.save(carBrand5);
+
+            session.save(bodyType1);
+            session.save(bodyType2);
+            session.save(bodyType3);
+            session.save(bodyType4);
+            session.save(bodyType5);
 
             session.save(post1);
             session.save(post2);
