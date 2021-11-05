@@ -10,7 +10,7 @@
         <property name="hibernate.connection.url">jdbc:h2:~/testdb;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;</property>
         <property name="hibernate.connection.username"></property>
         <property name="hibernate.connection.password"></property>
-        <property name="hibernate.connection.pool_size">1</property>
+        <property name="hibernate.connection.pool_size">2</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
@@ -24,6 +24,7 @@
         <mapping class="ru.job4j.cars.model.User" />
         <mapping class="ru.job4j.cars.model.BodyType" />
         <mapping class="ru.job4j.cars.model.CarBrand" />
+        <mapping class="ru.job4j.cars.model.CarModel" />
         <mapping class="ru.job4j.hql.Candidate" />
         <mapping class="ru.job4j.hql.PostDB" />
         <mapping class="ru.job4j.hql.JobPost" />

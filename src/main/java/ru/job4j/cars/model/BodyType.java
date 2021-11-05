@@ -52,6 +52,6 @@ public class BodyType {
 
     @Override
     public String toString() {
-        return "BodyType { " + "id=" + id + ", bodyType='" + bodyType + " }";
+        return "BodyType { " + "id=" + id + ", bodyType='" + bodyType + "' }";
     }
 }

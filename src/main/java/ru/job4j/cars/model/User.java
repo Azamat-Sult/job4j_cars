@@ -13,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
+    private String phone;
     private String name;
     private String password;
     @OneToMany(
@@ -23,9 +24,10 @@ public class User {
     )
     private List<Post> posts = new ArrayList<>();
 
-    public static User of(String email, String name, String password) {
+    public static User of(String email, String phone, String name, String password) {
         User user = new User();
         user.email = email;
+        user.phone = phone;
         user.name = name;
         user.password = password;
         return user;
@@ -45,6 +47,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getName() {
@@ -94,8 +104,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User { " + "id=" + id + ", email='" + email + ", name='" + name
-                + "', password='" + password + " }";
+        return "User { " + "id=" + id + ", email='" + email + "', phone='" + phone
+                + "', name='" + name + "', password='" + password + "' }";
     }
-
 }

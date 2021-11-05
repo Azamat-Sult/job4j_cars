@@ -124,7 +124,7 @@ public class AdRepository implements AutoCloseable {
     }
 
     public static void main(String[] args) {
-        AdRepository adRepo = AdRepository.instOf();
+        /*AdRepository adRepo = AdRepository.instOf();
 
         User user1 = User.of("email_1@mail.ru", "user 1", "pass 1");
 
@@ -182,7 +182,7 @@ public class AdRepository implements AutoCloseable {
         System.out.println("Posts of 'carBrand 4':");
         for (Post post : adRepo.findPostsByCarBrand(carBrand4)) {
             System.out.println(post);
-        }
+        }*/
 
     }
 

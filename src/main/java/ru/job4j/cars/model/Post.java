@@ -20,22 +20,40 @@ public class Post {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JoinColumn(name = "carmodel_id")
+    private CarModel carModel;
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "bodytype_id")
     private BodyType bodyType;
+    private String bodyColor;
+    private int mileAge;
+    private int ageYears;
     private String photo;
     private String description;
     private boolean sold;
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    @ManyToOne
+    @ManyToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "author_id")
     private User author;
 
-    public static Post of(CarBrand carBrand, BodyType bodyType, String description, User author) {
+    public static Post of(CarBrand carBrand, CarModel carModel, BodyType bodyType,
+                          String bodyColor, int mileAge, int ageYears,
+                          String photo, String description, User author) {
         Post post = new Post();
         post.carBrand = carBrand;
+        post.carModel = carModel;
         post.bodyType = bodyType;
-        post.photo = "noPhoto.jpg";
+        post.bodyColor = bodyColor;
+        post.mileAge = mileAge;
+        post.ageYears = ageYears;
+        post.photo = photo;
         post.description = description;
         post.sold = false;
         post.created = new Date(System.currentTimeMillis());
@@ -59,12 +77,44 @@ public class Post {
         this.carBrand = carBrand;
     }
 
+    public CarModel getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(CarModel carModel) {
+        this.carModel = carModel;
+    }
+
     public BodyType getBodyType() {
         return bodyType;
     }
 
     public void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
+    }
+
+    public String getBodyColor() {
+        return bodyColor;
+    }
+
+    public void setBodyColor(String bodyColor) {
+        this.bodyColor = bodyColor;
+    }
+
+    public int getMileAge() {
+        return mileAge;
+    }
+
+    public void setMileAge(int mileAge) {
+        this.mileAge = mileAge;
+    }
+
+    public int getAgeYears() {
+        return ageYears;
+    }
+
+    public void setAgeYears(int ageYears) {
+        this.ageYears = ageYears;
     }
 
     public String getPhoto() {
@@ -91,20 +141,20 @@ public class Post {
         this.sold = sold;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
     public Date getCreated() {
         return created;
     }
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     @Override
@@ -126,8 +176,10 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post { " + "id=" + id + ", carBrand='" + carBrand + "', bodyType='" + bodyType
-                + "', photo='" + photo + "', description='" + description + "', sold=" + sold
-                + ", created='" + created + "', author=" + author + " }";
+        return "Post { " + "id=" + id + ", carBrand=" + carBrand + ", carModel=" + carModel
+                + ", bodyType=" + bodyType + ", bodyColor='" + bodyColor
+                + "', mileAge=" + mileAge + ", ageYears=" + ageYears + ", photo='" + photo
+                + "', description='" + description + "', sold=" + sold
+                + ", created=" + created + ", author=" + author + " }";
     }
 }
