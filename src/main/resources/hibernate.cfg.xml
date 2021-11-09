@@ -28,6 +28,7 @@
         <mapping class="ru.job4j.hql.Candidate" />
         <mapping class="ru.job4j.hql.PostDB" />
         <mapping class="ru.job4j.hql.JobPost" />
+        <mapping class="ru.job4j.cars.model.Car" />
 
     </session-factory>
 </hibernate-configuration>
