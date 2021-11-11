@@ -3,7 +3,6 @@ package ru.job4j.cars.service;
 import ru.job4j.cars.model.*;
 import ru.job4j.cars.persistence.HbmStore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarsService {
@@ -16,10 +15,12 @@ public class CarsService {
         return CarsService.Lazy.INST;
     }
 
-    public List<PostForFront> findAllActivePosts(User sessionUser, int carBrandIdFilter, boolean showTodayPosts) {
-        List<PostForFront> postsForFront = new ArrayList<>();
-        for (Post post : HbmStore.instOf().findAllActivePosts(carBrandIdFilter, showTodayPosts)) {
-            postsForFront.add(PostForFront.of(post, sessionUser));
+    public List<Post> findAllActivePosts(User sessionUser, int carBrandIdFilter, boolean showTodayPosts) {
+        List<Post> postsForFront = HbmStore.instOf().findAllActivePosts(carBrandIdFilter, showTodayPosts);
+        for (Post post : postsForFront) {
+            if (sessionUser != null && sessionUser.getEmail().equals(post.getAuthor().getEmail())) {
+                post.setShowSoldButton(true);
+            }
         }
         return postsForFront;
     }
@@ -50,20 +51,12 @@ public class CarsService {
         HbmStore.instOf().saveCarImage(postId, imageFileName);
     }
 
-    public List<CarBrandForFront> getAllCarBrands() {
-        List<CarBrandForFront> carBrandForFront = new ArrayList<>();
-        for (CarBrand carBrand : HbmStore.instOf().getAllCarBrands()) {
-            carBrandForFront.add(CarBrandForFront.of(carBrand));
-        }
-        return carBrandForFront;
+    public List<CarBrand> getAllCarBrands() {
+        return HbmStore.instOf().getAllCarBrands();
     }
 
-    public List<CarModelForFront> getModelsByBrandId(int id) {
-        List<CarModelForFront> carModelForFronts = new ArrayList<>();
-        for (CarModel carModel : HbmStore.instOf().getCarBrandById(id).getCarModels()) {
-            carModelForFronts.add(CarModelForFront.of(carModel));
-        }
-        return carModelForFronts;
+    public List<CarModel> getModelsByBrandId(int id) {
+        return HbmStore.instOf().getCarBrandById(id).getCarModels();
     }
 
     public List<BodyType> getBodyTypes() {

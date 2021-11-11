@@ -2,6 +2,8 @@ package ru.job4j.cars.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ru.job4j.cars.helper.serializers.PostSerializer;
+import ru.job4j.cars.model.Post;
 import ru.job4j.cars.model.User;
 import ru.job4j.cars.service.CarsService;
 
@@ -14,7 +16,9 @@ import java.nio.charset.StandardCharsets;
 public class GetPostsServlet extends HttpServlet {
 
     private static final Gson GSON = new GsonBuilder()
-            .setDateFormat("dd/MM/yy HH:mm").create();
+            .setDateFormat("dd/MM/yy HH:mm")
+            .registerTypeAdapter(Post.class, new PostSerializer())
+            .create();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

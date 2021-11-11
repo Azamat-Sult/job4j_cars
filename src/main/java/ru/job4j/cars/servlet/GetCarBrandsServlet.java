@@ -2,6 +2,8 @@ package ru.job4j.cars.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ru.job4j.cars.helper.serializers.CarBrandSerializer;
+import ru.job4j.cars.model.CarBrand;
 import ru.job4j.cars.service.CarsService;
 
 import javax.servlet.*;
@@ -12,7 +14,9 @@ import java.nio.charset.StandardCharsets;
 
 public class GetCarBrandsServlet extends HttpServlet {
 
-    private static final Gson GSON = new GsonBuilder().create();
+    private static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(CarBrand.class, new CarBrandSerializer())
+            .create();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -42,6 +42,7 @@ public class Post {
     )
     @JoinColumn(name = "author_id")
     private User author;
+    private boolean showSoldButton = false;
 
     public static Post of(CarBrand carBrand, CarModel carModel, BodyType bodyType,
                           String bodyColor, int mileAge, int ageYears,
@@ -155,6 +156,14 @@ public class Post {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public boolean getShowSoldButton() {
+        return showSoldButton;
+    }
+
+    public void setShowSoldButton(boolean showSoldButton) {
+        this.showSoldButton = showSoldButton;
     }
 
     @Override
