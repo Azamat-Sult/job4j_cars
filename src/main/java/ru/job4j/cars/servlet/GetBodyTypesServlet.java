@@ -18,7 +18,7 @@ public class GetBodyTypesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json; charset=utf-8");
         OutputStream output = resp.getOutputStream();
-        String json = GSON.toJson(CarsService.instOf().getBodyTypes());
+        String json = GSON.toJson(CarsService.instOf().getAllBodyTypes());
         output.write(json.getBytes(StandardCharsets.UTF_8));
         output.flush();
         output.close();

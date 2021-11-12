@@ -1,7 +1,9 @@
 package ru.job4j.cars.service;
 
 import ru.job4j.cars.model.*;
-import ru.job4j.cars.persistence.HbmStore;
+import ru.job4j.cars.persistence.CarRepository;
+import ru.job4j.cars.persistence.PostRepository;
+import ru.job4j.cars.persistence.UserRepository;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class CarsService {
     }
 
     public List<Post> findAllActivePosts(User sessionUser, int carBrandIdFilter, boolean showTodayPosts) {
-        List<Post> postsForFront = HbmStore.instOf().findAllActivePosts(carBrandIdFilter, showTodayPosts);
+        List<Post> postsForFront = PostRepository.instOf().findAllActivePosts(carBrandIdFilter, showTodayPosts);
         for (Post post : postsForFront) {
             if (sessionUser != null && sessionUser.getEmail().equals(post.getAuthor().getEmail())) {
                 post.setShowSoldButton(true);
@@ -26,45 +28,45 @@ public class CarsService {
     }
 
     public User findUserByEmail(String email) {
-        return HbmStore.instOf().findUserByEmail(email);
+        return UserRepository.instOf().findUserByEmail(email);
     }
 
     public User addUser(User user) {
-        return HbmStore.instOf().addUser(user);
+        return UserRepository.instOf().addUser(user);
     }
 
     public Post addPost(int carBrandId, int carModelId, int bodyTypeId,
                         String bodyColor, int mileAge, int ageYears,
                         String description, User user) {
 
-        CarBrand carBrand = HbmStore.instOf().getCarBrandById(carBrandId);
-        CarModel carModel = HbmStore.instOf().getCarModelById(carModelId);
-        BodyType bodyType = HbmStore.instOf().getBodyTypeById(bodyTypeId);
+        CarBrand carBrand = CarRepository.instOf().getCarBrandById(carBrandId);
+        CarModel carModel = CarRepository.instOf().getCarModelById(carModelId);
+        BodyType bodyType = CarRepository.instOf().getBodyTypeById(bodyTypeId);
 
         Post newPost = Post.of(carBrand, carModel, bodyType, bodyColor, mileAge,
                 ageYears, "noPhoto.jpg", description, user);
 
-        return HbmStore.instOf().addPost(newPost);
+        return PostRepository.instOf().addPost(newPost);
     }
 
     public void saveCarImage(int postId, String imageFileName) {
-        HbmStore.instOf().saveCarImage(postId, imageFileName);
+        CarRepository.instOf().saveCarImage(postId, imageFileName);
     }
 
     public List<CarBrand> getAllCarBrands() {
-        return HbmStore.instOf().getAllCarBrands();
+        return CarRepository.instOf().getAllCarBrands();
     }
 
     public List<CarModel> getModelsByBrandId(int id) {
-        return HbmStore.instOf().getCarBrandById(id).getCarModels();
+        return CarRepository.instOf().getCarBrandById(id).getCarModels();
     }
 
-    public List<BodyType> getBodyTypes() {
-        return HbmStore.instOf().getBodyTypes();
+    public List<BodyType> getAllBodyTypes() {
+        return CarRepository.instOf().getAllBodyTypes();
     }
 
     public void changePostStatus(int id) {
-        HbmStore.instOf().changePostStatus(id);
+        PostRepository.instOf().changePostStatus(id);
     }
 
 }
